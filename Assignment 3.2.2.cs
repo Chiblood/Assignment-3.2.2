@@ -68,12 +68,20 @@ public class Program
     {
         int rows = matrix.GetLength(0);
         int cols = matrix.GetLength(1);
+
+        // Determine the maximum width of any element in the matrix for padding
+        int maxWidth = 0;
+        foreach (int value in matrix)
+        {
+            maxWidth = Math.Max(maxWidth, value.ToString().Length);
+        }
+
         for (int i = 0; i < rows; i++)
         {
-            Console.Write("|");
+            Console.Write("|"); // start of row
             for (int j = 0; j < cols; j++)
             {
-                Console.Write(" " + matrix[i, j] + " |");
+                Console.Write($" {matrix[i, j].ToString().PadLeft(maxWidth)} |");
             }
             Console.WriteLine();
         }
@@ -88,6 +96,22 @@ public class Program
             for (int j = 0; j < cols; j++)
             {
                 matrix[i, j] = GetUserInput<int>($"Element - [{i}],[{j}] : ", "Invalid input. Please enter a whole number.");
+            }
+        }
+    }
+    private static void AddMatrices(int[,] matrix1, int[,] matrix2, int[,] result) // add two matrices and store result in third matrix
+    {
+        if(matrix1.GetLength(0) != matrix2.GetLength(0) || matrix1.GetLength(1) != matrix2.GetLength(1))
+        {
+            throw new ArgumentException("Matrices must be of the same size to add.");
+        }
+        int rows = matrix1.GetLength(0);
+        int cols = matrix1.GetLength(1);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                result[i, j] = matrix1[i, j] + matrix2[i, j];
             }
         }
     }
@@ -108,15 +132,9 @@ public class Program
         Console.WriteLine();
         // input elements into second matrix
         InputMatrix(matrix2);
-
         // adding two matrices, iterate through both and add corresponding elements in their positions
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                result[i, j] = matrix1[i, j] + matrix2[i, j];
-            }
-        }
+        AddMatrices(matrix1, matrix2, result);
+        // print first matrix
         Console.WriteLine("The First matrix is:");
         PrintMatrix(matrix1);
         // print second matrix
