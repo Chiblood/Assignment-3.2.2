@@ -78,14 +78,16 @@ public class Program
             Console.WriteLine();
         }
     }
-    private static void InputElements(int[,] matrix, int size, string matrixName) // input elements into matrix from user
+    private static void InputMatrix(int[,] matrix) // input elements into matrix from user, requires the matrix to be pre-defined
     {
-        Console.WriteLine($"Input elements in the {matrixName} matrix :");
-        for (int i = 0; i < size; i++)
+        Console.WriteLine($"Input elements in the user-defined matrix :");
+        int rows = matrix.GetLength(0);
+        int cols = matrix.GetLength(1);
+        for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j < cols; j++)
             {
-                matrix[i, j] = GetUserInput<int>($"element - [{i}],[{j}] : ", "Invalid input. Please enter a whole number.");
+                matrix[i, j] = GetUserInput<int>($"Element - [{i}],[{j}] : ", "Invalid input. Please enter a whole number.");
             }
         }
     }
@@ -102,10 +104,11 @@ public class Program
         int[,] result = new int[size, size];
 
         // input elements into first matrix
-        InputElements(matrix1, size, "first");
+        InputMatrix(matrix1);
+        Console.WriteLine();
         // input elements into second matrix
-        InputElements(matrix2, size, "second");
-                
+        InputMatrix(matrix2);
+
         // adding two matrices, iterate through both and add corresponding elements in their positions
         for (int i = 0; i < size; i++)
         {
@@ -120,7 +123,7 @@ public class Program
         Console.WriteLine("The Second matrix is:");
         PrintMatrix(matrix2);
         // print result
-        Console.WriteLine("The Addition of two matrix is:");
+        Console.WriteLine("The Addition of the two matrices is:");
         PrintMatrix(result);
     }
 }
