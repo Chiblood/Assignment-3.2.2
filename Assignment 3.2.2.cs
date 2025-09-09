@@ -1,5 +1,6 @@
 ﻿/* Assignment 3.2.2
 2. Write a program in C# Sharp for addition of two Matrices of the same size.
+ could potentially add arrays that are not square making a larger range of use cases
 
 Test Data :
 Input the size of the square matrix (less than 5): 2
